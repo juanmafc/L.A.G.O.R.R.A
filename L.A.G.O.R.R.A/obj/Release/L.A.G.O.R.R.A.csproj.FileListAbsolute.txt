@@ -1,0 +1,12 @@
+C:\Users\User\Documents\L.A.G.O.R.R.A\L.A.G.O.R.R.A\bin\Release\L.A.G.O.R.R.A.exe.config
+C:\Users\User\Documents\L.A.G.O.R.R.A\L.A.G.O.R.R.A\bin\Release\L.A.G.O.R.R.A.exe
+C:\Users\User\Documents\L.A.G.O.R.R.A\L.A.G.O.R.R.A\bin\Release\L.A.G.O.R.R.A.pdb
+C:\Users\User\Documents\L.A.G.O.R.R.A\L.A.G.O.R.R.A\bin\Release\ClosedXML.dll
+C:\Users\User\Documents\L.A.G.O.R.R.A\L.A.G.O.R.R.A\bin\Release\DocumentFormat.OpenXml.dll
+C:\Users\User\Documents\L.A.G.O.R.R.A\L.A.G.O.R.R.A\bin\Release\ExcelNumberFormat.dll
+C:\Users\User\Documents\L.A.G.O.R.R.A\L.A.G.O.R.R.A\bin\Release\FastMember.Signed.dll
+C:\Users\User\Documents\L.A.G.O.R.R.A\L.A.G.O.R.R.A\bin\Release\ClosedXML.xml
+C:\Users\User\Documents\L.A.G.O.R.R.A\L.A.G.O.R.R.A\bin\Release\DocumentFormat.OpenXml.xml
+C:\Users\User\Documents\L.A.G.O.R.R.A\L.A.G.O.R.R.A\bin\Release\ExcelNumberFormat.xml
+C:\Users\User\Documents\L.A.G.O.R.R.A\L.A.G.O.R.R.A\obj\Release\L.A.G.O.R.R.A.exe
+C:\Users\User\Documents\L.A.G.O.R.R.A\L.A.G.O.R.R.A\obj\Release\L.A.G.O.R.R.A.pdb

@@ -8,6 +8,5 @@ C:\Users\User\Documents\L.A.G.O.R.R.A\L.A.G.O.R.R.A\bin\Debug\FastMember.Signed.
 C:\Users\User\Documents\L.A.G.O.R.R.A\L.A.G.O.R.R.A\bin\Debug\ClosedXML.xml
 C:\Users\User\Documents\L.A.G.O.R.R.A\L.A.G.O.R.R.A\bin\Debug\DocumentFormat.OpenXml.xml
 C:\Users\User\Documents\L.A.G.O.R.R.A\L.A.G.O.R.R.A\bin\Debug\ExcelNumberFormat.xml
-C:\Users\User\Documents\L.A.G.O.R.R.A\L.A.G.O.R.R.A\obj\Debug\L.A.G.O.R.R.A.csprojResolveAssemblyReference.cache
 C:\Users\User\Documents\L.A.G.O.R.R.A\L.A.G.O.R.R.A\obj\Debug\L.A.G.O.R.R.A.exe
 C:\Users\User\Documents\L.A.G.O.R.R.A\L.A.G.O.R.R.A\obj\Debug\L.A.G.O.R.R.A.pdb

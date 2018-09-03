@@ -60,8 +60,9 @@ namespace L.A.G.O.R.R.A
             return this.workerID;
         }
 
+        /*
         public int getTotalMorningWorkedHours()
-        {
+        {            
             Time totalMorningWorkedHours;
             foreach (var workedDay in this.getWorkedDays())
             {
@@ -69,5 +70,6 @@ namespace L.A.G.O.R.R.A
             }
             return totalMorningWorkedHours.toString();
         }
+        */
     }
 }

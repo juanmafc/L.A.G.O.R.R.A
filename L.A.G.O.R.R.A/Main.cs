@@ -11,7 +11,11 @@ namespace L.A.G.O.R.R.A
     {
         static void Main(string[] args)
         {
-            var hoursWorkbook = new XLWorkbook("Horas-Enero - copia.xlsx");           
+
+            string hoursWorkbookName = args[0];
+            int workerRegisteredEntriesCount = Utilities.StringToInt(args[1]);
+
+            var hoursWorkbook = new XLWorkbook(hoursWorkbookName);
             var hoursWorkSheet = hoursWorkbook.Worksheet(1);
             /*
             var workedHours = hoursWorkSheet.Cell("C4").Value;
@@ -19,7 +23,7 @@ namespace L.A.G.O.R.R.A
             */
 
             var workerRegisteredEntriesExcelFileParser = new WorkerRegisteredEntriesExcelFileParser();
-            var workerRegisteredEntries = workerRegisteredEntriesExcelFileParser.parse(hoursWorkbook);
+            var workerRegisteredEntries = workerRegisteredEntriesExcelFileParser.parse(hoursWorkbook, workerRegisteredEntriesCount);
 
 
 
@@ -44,20 +48,30 @@ namespace L.A.G.O.R.R.A
                 writeWorkPeriodHeader(workingPeriod.Key, workersEntriesByDatesWorkSheet, workerDateCurrentRow);
                 workerDateCurrentRow++;
 
+                int firstDateRow = workerDateCurrentRow;
                 foreach (WorkedDay workedDay in workingPeriod.Value.getWorkedDays())
                 {
                     writeWorkDay(workedDay, workersEntriesByDatesWorkSheet, workerDateCurrentRow);                                        
                     workerDateCurrentRow++;
                 }
 
+                int lastDateRow = workerDateCurrentRow - 1;
+                workersEntriesByDatesWorkSheet.Cell("G" + workerDateCurrentRow).FormulaA1 = "=SUM(G" + firstDateRow + ":G" + lastDateRow + ")";
+                workersEntriesByDatesWorkSheet.Cell("H" + workerDateCurrentRow).FormulaA1 = "=SUM(H" + firstDateRow + ":H" + lastDateRow + ")";
+                workersEntriesByDatesWorkSheet.Cell("I" + workerDateCurrentRow).FormulaA1 = "=SUM(G" + workerDateCurrentRow + ": H" + workerDateCurrentRow + ")";
 
-                workerDateCurrentRow++;
+                //TODO:refactor
+                workersEntriesByDatesWorkSheet.Cell("G" + workerDateCurrentRow).Style.NumberFormat.Format = "[h]:mm:ss";
+                workersEntriesByDatesWorkSheet.Cell("H" + workerDateCurrentRow).Style.NumberFormat.Format = "[h]:mm:ss";
+                workersEntriesByDatesWorkSheet.Cell("I" + workerDateCurrentRow).Style.NumberFormat.Format = "[h]:mm:ss";
 
+
+                /*TODO: total hours can be calculated here by adding all hours (better) or by using Excel's function (worse)
                 workersEntriesByDatesWorkSheet.Cell("G" + workerDateCurrentRow).Value = workingPeriod.Value.getTotalMorningWorkedHours();
                 workersEntriesByDatesWorkSheet.Cell("H" + workerDateCurrentRow).Value = workingPeriod.Value.getTotalAfternooWorkedHours();
                 workersEntriesByDatesWorkSheet.Cell("I" + workerDateCurrentRow).Value = workingPeriod.Value.getTotalWorkedHours();
-
-                workerDateCurrentRow++;
+                */
+                workerDateCurrentRow +=2;
             }
 
             int row = 4;
