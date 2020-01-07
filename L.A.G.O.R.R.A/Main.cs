@@ -12,8 +12,12 @@ namespace L.A.G.O.R.R.A
         static void Main(string[] args)
         {
 
+            string hoursWorkbookName = @"C:\Users\Juanma\Documents\L.A.G.O.R.R.A\Testing files\Test_file.xlsx";;
+            int workerTimeEntriesCount = 629;
+            /*
             string hoursWorkbookName = args[0];
-            int workerRegisteredEntriesCount = Utilities.StringToInt(args[1]);
+            int workerTimeEntriesCount = Utilities.StringToInt(args[1]);
+            */
 
             var hoursWorkbook = new XLWorkbook(hoursWorkbookName);
             var hoursWorkSheet = hoursWorkbook.Worksheet(1);
@@ -22,20 +26,20 @@ namespace L.A.G.O.R.R.A
             Console.Write(workedHours);            
             */
 
-            var workerRegisteredEntriesExcelFileParser = new WorkerRegisteredEntriesExcelFileParser();
-            var workerRegisteredEntries = workerRegisteredEntriesExcelFileParser.parse(hoursWorkbook, workerRegisteredEntriesCount);
+            var workerTimeEntriesExcelFileParser = new WorkerTimeEntriesExcelFileParser();
+            var workerTimeEntries = workerTimeEntriesExcelFileParser.parse(hoursWorkbook, workerTimeEntriesCount);
 
 
 
             SortedDictionary<int, WorkerWorkingPeriod> workerWorkingPeriods = new SortedDictionary<int, WorkerWorkingPeriod>();
-            foreach (var workerRegisteredEntry in workerRegisteredEntries)
+            foreach (var workerTimeEntry in workerTimeEntries)
             {
-                int workerID = workerRegisteredEntry.getWorkerID();
+                int workerID = workerTimeEntry.getWorkerID();
                 if ( !workerWorkingPeriods.ContainsKey(workerID) )
                 {
                     workerWorkingPeriods[workerID] = new WorkerWorkingPeriod(workerID);
                 }
-                workerWorkingPeriods[workerID].addWorkerRegisteredEntry(workerRegisteredEntry);
+                workerWorkingPeriods[workerID].addWorkerTimeEntry(workerTimeEntry);
             }
 
 
@@ -75,9 +79,9 @@ namespace L.A.G.O.R.R.A
             }
 
             int row = 4;
-            foreach (var workerRegisteredEntry in workerRegisteredEntries )
+            foreach (var workerTimeEntry in workerTimeEntries )
             {
-                hoursWorkSheet.Cell("I" + row).Value = workerRegisteredEntry.getRoundedTime();
+                hoursWorkSheet.Cell("I" + row).Value = workerTimeEntry.getRoundedTime();
                 row++;
             }
 
