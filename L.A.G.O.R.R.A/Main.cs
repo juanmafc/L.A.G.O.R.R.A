@@ -93,7 +93,7 @@ namespace L.A.G.O.R.R.A
             workSheet.Cell("A" + row).Value = workedDay.getDate();
             char lastColum = 'B';
 
-            foreach (LoggedTime loggedTime in workedDay.getLoggedTimes())
+            foreach (Time loggedTime in workedDay.getLoggedTimes())
             {
                 //TODO:Search for a way to use last written column
                 string loggedTimeCellIndex = lastColum.ToString() + row;

@@ -6,7 +6,7 @@ namespace L.A.G.O.R.R.A
     class WorkedDay
     {
         private DateTime day;
-        private List<LoggedTime> loggedTimes = new List<LoggedTime>();
+        private List<Time> loggedTimes = new List<Time>();
 
         public WorkedDay(DateTime workedDay)
         {
@@ -18,14 +18,14 @@ namespace L.A.G.O.R.R.A
             return String.Format("{0:dd/MM/yyyy}", this.day);
         }
 
-        public IEnumerable<LoggedTime> getLoggedTimes()
+        public IEnumerable<Time> getLoggedTimes()
         {
             return this.loggedTimes;
         }
 
-        internal void addLoggedTime(LoggedTime loggedTime)
+        internal void addLoggedTime(Time time)
         {
-            this.loggedTimes.Add(loggedTime);
+            this.loggedTimes.Add(time);
         }
 
         public string getMorningWorkedHours()

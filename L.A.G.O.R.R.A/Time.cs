@@ -2,11 +2,11 @@
 
 namespace L.A.G.O.R.R.A
 {
-    class LoggedTime
+    class Time
     {
         private string time;
 
-        public LoggedTime(string time)
+        public Time(string time)
         {
             this.time = time;
         }
@@ -16,7 +16,7 @@ namespace L.A.G.O.R.R.A
             return this.time;
         }
 
-        public string getTimeDifference(LoggedTime other)
+        public string getTimeDifference(Time other)
         {
             TimeSpan myLoggedTimeSpan = TimeSpan.Parse(this.time);
             TimeSpan otherLoggedTimeSpan = TimeSpan.Parse(other.time);

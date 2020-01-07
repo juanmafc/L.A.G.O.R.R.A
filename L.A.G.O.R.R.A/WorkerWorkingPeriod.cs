@@ -28,7 +28,7 @@ namespace L.A.G.O.R.R.A
                 workedDaysMap[day] = new WorkedDay(day);
             }
 
-            workedDaysMap[day].addLoggedTime( new LoggedTime(workerTimeEntry.getRoundedTime()) );
+            workedDaysMap[day].addLoggedTime( new Time(workerTimeEntry.getRoundedTime()) );
 
         }
 
