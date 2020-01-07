@@ -64,7 +64,6 @@
     <Compile Include="LoggedTime.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Time.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="WorkedDay.cs" />
     <Compile Include="WorkerTimeEntriesExcelFileParser.cs" />
