@@ -67,7 +67,7 @@
     <Compile Include="Time.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="WorkedDay.cs" />
-    <Compile Include="WorkerRegisteredEntriesExcelFileParser.cs" />
+    <Compile Include="WorkerTimeEntriesExcelFileParser.cs" />
     <Compile Include="WorkerTimeEntry.cs" />
     <Compile Include="WorkerWorkingPeriod.cs" />
   </ItemGroup>

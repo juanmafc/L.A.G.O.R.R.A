@@ -18,7 +18,7 @@ namespace L.A.G.O.R.R.A
             this.workerID = workerID;
         }
 
-        public void addWorkerRegisteredEntry(WorkerTimeEntry workerTimeEntry)
+        public void addWorkerTimeEntry(WorkerTimeEntry workerTimeEntry)
         {
             this.workerTimeEntries.Add(workerTimeEntry);
 
