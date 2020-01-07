@@ -7,7 +7,7 @@ namespace L.A.G.O.R.R.A
     class WorkerWorkingPeriod
     {
 
-        private List<WorkerRegisteredEntry> workerRegisteredEntries = new List<WorkerRegisteredEntry>();
+        private List<WorkerTimeEntry> workerTimeEntries = new List<WorkerTimeEntry>();
         private int workerID;
         
         //TODO: do thise a sorted set by WorkedDay
@@ -18,17 +18,17 @@ namespace L.A.G.O.R.R.A
             this.workerID = workerID;
         }
 
-        public void addWorkerRegisteredEntry(WorkerRegisteredEntry workerRegisteredEntry)
+        public void addWorkerRegisteredEntry(WorkerTimeEntry workerTimeEntry)
         {
-            this.workerRegisteredEntries.Add(workerRegisteredEntry);
+            this.workerTimeEntries.Add(workerTimeEntry);
 
-            var day = workerRegisteredEntry.getDay();
+            var day = workerTimeEntry.getDay();
             if (!workedDaysMap.ContainsKey(day))
             {
                 workedDaysMap[day] = new WorkedDay(day);
             }
 
-            workedDaysMap[day].addLoggedTime( new LoggedTime(workerRegisteredEntry.getRoundedTime()) );
+            workedDaysMap[day].addLoggedTime( new LoggedTime(workerTimeEntry.getRoundedTime()) );
 
         }
 

@@ -7,12 +7,12 @@ using ClosedXML.Excel;
 
 namespace L.A.G.O.R.R.A
 {
-    class WorkerRegisteredEntry
+    class WorkerTimeEntry
     {
         private int workerID;
         private DateTime entryTimestamp;
 
-        public WorkerRegisteredEntry(int workerID, DateTime entryTimestamp)
+        public WorkerTimeEntry(int workerID, DateTime entryTimestamp)
         {
             this.workerID = workerID;
             this.entryTimestamp = entryTimestamp;
