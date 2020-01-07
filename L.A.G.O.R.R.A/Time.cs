@@ -2,7 +2,7 @@
 
 namespace L.A.G.O.R.R.A
 {
-    class Time
+    public class Time
     {
         private string time;
 
@@ -22,7 +22,7 @@ namespace L.A.G.O.R.R.A
             TimeSpan otherLoggedTimeSpan = TimeSpan.Parse(other.time);
 
             TimeSpan timeDifference =  myLoggedTimeSpan.Subtract(otherLoggedTimeSpan);
-            return timeDifference.Hours + ":" + timeDifference.Minutes;
+            return timeDifference.ToString(@"hh\:mm");
         }
     }
 }
