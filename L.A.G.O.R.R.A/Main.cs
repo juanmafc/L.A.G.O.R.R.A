@@ -9,11 +9,29 @@ namespace L.A.G.O.R.R.A
 {
     class Program
     {
+        
+        private static SortedDictionary<int, WorkerWorkingPeriod> GroupTimeEntriesInWorkingPeriodsByWorker(XLWorkbook hoursWorkbook, int timeEntriesCount)
+        {
+            var timeEntries = new WorkerTimeEntriesExcelFileParser().parse(hoursWorkbook, timeEntriesCount);
+            
+            SortedDictionary<int, WorkerWorkingPeriod> workingPeriods = new SortedDictionary<int, WorkerWorkingPeriod>();
+            foreach (var timeEntry in timeEntries)
+            {
+                int workerId = timeEntry.getWorkerID();
+                if ( !workingPeriods.ContainsKey(workerId) )
+                {
+                    workingPeriods[workerId] = new WorkerWorkingPeriod(workerId);
+                }
+                workingPeriods[workerId].addWorkerTimeEntry(timeEntry);
+            }
+
+            return workingPeriods;
+        }
         static void Main(string[] args)
         {
 
             string hoursWorkbookName = @"C:\Users\Juanma\Documents\L.A.G.O.R.R.A\Testing files\Test_file.xlsx";;
-            int workerTimeEntriesCount = 629;
+            int timeEntriesCount = 629;
             /*
             string hoursWorkbookName = args[0];
             int workerTimeEntriesCount = Utilities.StringToInt(args[1]);
@@ -25,29 +43,14 @@ namespace L.A.G.O.R.R.A
             var workedHours = hoursWorkSheet.Cell("C4").Value;
             Console.Write(workedHours);            
             */
-
-            var workerTimeEntriesExcelFileParser = new WorkerTimeEntriesExcelFileParser();
-            var workerTimeEntries = workerTimeEntriesExcelFileParser.parse(hoursWorkbook, workerTimeEntriesCount);
-
-
-
-            SortedDictionary<int, WorkerWorkingPeriod> workerWorkingPeriods = new SortedDictionary<int, WorkerWorkingPeriod>();
-            foreach (var workerTimeEntry in workerTimeEntries)
-            {
-                int workerID = workerTimeEntry.getWorkerID();
-                if ( !workerWorkingPeriods.ContainsKey(workerID) )
-                {
-                    workerWorkingPeriods[workerID] = new WorkerWorkingPeriod(workerID);
-                }
-                workerWorkingPeriods[workerID].addWorkerTimeEntry(workerTimeEntry);
-            }
-
+            
+            SortedDictionary<int, WorkerWorkingPeriod> workingPeriods = GroupTimeEntriesInWorkingPeriodsByWorker(hoursWorkbook, timeEntriesCount);
 
             var workersEntriesByDatesWorkSheet = hoursWorkbook.Worksheet(2);
             //TODO: rename this variable
             int workerDateCurrentRow = 1; 
             //TODO: A dictionary might not be needed here, use set instead
-            foreach (KeyValuePair<int, WorkerWorkingPeriod> workingPeriod in workerWorkingPeriods)
+            foreach (KeyValuePair<int, WorkerWorkingPeriod> workingPeriod in workingPeriods)
             {
                 writeWorkPeriodHeader(workingPeriod.Key, workersEntriesByDatesWorkSheet, workerDateCurrentRow);
                 workerDateCurrentRow++;
@@ -78,15 +81,11 @@ namespace L.A.G.O.R.R.A
                 workerDateCurrentRow +=2;
             }
 
-            int row = 4;
-            foreach (var workerTimeEntry in workerTimeEntries )
-            {
-                hoursWorkSheet.Cell("I" + row).Value = workerTimeEntry.getRoundedTime();
-                row++;
-            }
 
             hoursWorkbook.Save();
         }
+
+       
 
         static void writeWorkDay(WorkedDay workedDay, IXLWorksheet workSheet, int row)
         {
