@@ -38,31 +38,31 @@ namespace L.A.G.O.R.R.A
             var timeEntries = new WorkerTimeEntriesExcelFileParser().parse(hoursWorkbook, timeEntriesCount);
             SortedDictionary<int, WorkerWorkingPeriod> workingPeriods = GroupTimeEntriesInWorkingPeriodsByWorker(timeEntries);
 
-            var workersWorkingPeriodsWorkSheet = hoursWorkbook.Worksheet(2);
+            var workingPeriodsSheet = hoursWorkbook.Worksheet(2);
             //TODO: rename this variable
             int workerDateCurrentRow = 1; 
             //TODO: A dictionary might not be needed here, use set instead
             foreach (KeyValuePair<int, WorkerWorkingPeriod> workingPeriod in workingPeriods)
             {
-                WriteWorkingPeriodHeader(workingPeriod.Key, workersWorkingPeriodsWorkSheet, workerDateCurrentRow);
+                WriteWorkingPeriodHeader(workingPeriod.Key, workingPeriodsSheet, workerDateCurrentRow);
                 workerDateCurrentRow++;
 
                 int firstDateRow = workerDateCurrentRow;
                 foreach (WorkedDay workedDay in workingPeriod.Value.getWorkedDays())
                 {
-                    writeWorkDay(workedDay, workersWorkingPeriodsWorkSheet, workerDateCurrentRow);                                        
+                    writeWorkDay(workedDay, workingPeriodsSheet, workerDateCurrentRow);                                        
                     workerDateCurrentRow++;
                 }
 
                 int lastDateRow = workerDateCurrentRow - 1;
-                workersWorkingPeriodsWorkSheet.Cell("G" + workerDateCurrentRow).FormulaA1 = "=SUM(G" + firstDateRow + ":G" + lastDateRow + ")";
-                workersWorkingPeriodsWorkSheet.Cell("H" + workerDateCurrentRow).FormulaA1 = "=SUM(H" + firstDateRow + ":H" + lastDateRow + ")";
-                workersWorkingPeriodsWorkSheet.Cell("I" + workerDateCurrentRow).FormulaA1 = "=SUM(G" + workerDateCurrentRow + ": H" + workerDateCurrentRow + ")";
+                workingPeriodsSheet.Cell("G" + workerDateCurrentRow).FormulaA1 = "=SUM(G" + firstDateRow + ":G" + lastDateRow + ")";
+                workingPeriodsSheet.Cell("H" + workerDateCurrentRow).FormulaA1 = "=SUM(H" + firstDateRow + ":H" + lastDateRow + ")";
+                workingPeriodsSheet.Cell("I" + workerDateCurrentRow).FormulaA1 = "=SUM(G" + workerDateCurrentRow + ": H" + workerDateCurrentRow + ")";
 
                 //TODO:refactor
-                workersWorkingPeriodsWorkSheet.Cell("G" + workerDateCurrentRow).Style.NumberFormat.Format = "[h]:mm:ss";
-                workersWorkingPeriodsWorkSheet.Cell("H" + workerDateCurrentRow).Style.NumberFormat.Format = "[h]:mm:ss";
-                workersWorkingPeriodsWorkSheet.Cell("I" + workerDateCurrentRow).Style.NumberFormat.Format = "[h]:mm:ss";
+                workingPeriodsSheet.Cell("G" + workerDateCurrentRow).Style.NumberFormat.Format = "[h]:mm:ss";
+                workingPeriodsSheet.Cell("H" + workerDateCurrentRow).Style.NumberFormat.Format = "[h]:mm:ss";
+                workingPeriodsSheet.Cell("I" + workerDateCurrentRow).Style.NumberFormat.Format = "[h]:mm:ss";
 
 
                 /*TODO: total hours can be calculated here by adding all hours (better) or by using Excel's function (worse)
