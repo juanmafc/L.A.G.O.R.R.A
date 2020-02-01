@@ -8,14 +8,14 @@ namespace L.A.G.O.R.R.A
     {
 
         private List<WorkerTimeEntry> workerTimeEntries = new List<WorkerTimeEntry>();
-        private int workerID;
+        public int WorkerID { get; }
         
         //TODO: do thise a sorted set by WorkedDay
         private SortedDictionary<DateTime, WorkedDay> workedDaysMap = new SortedDictionary<DateTime, WorkedDay>();
 
         public WorkerWorkingPeriod(int workerID)
         {
-            this.workerID = workerID;
+            this.WorkerID = workerID;
         }
 
         public void addWorkerTimeEntry(WorkerTimeEntry workerTimeEntry)
@@ -52,12 +52,12 @@ namespace L.A.G.O.R.R.A
             WorkerWorkingPeriod other = obj as WorkerWorkingPeriod;
             if (other == null) return false;
 
-            return this.workerID == other.workerID;
+            return this.WorkerID == other.WorkerID;
         }
 
         public override int GetHashCode()
         {
-            return this.workerID;
+            return this.WorkerID;
         }
 
         /*
