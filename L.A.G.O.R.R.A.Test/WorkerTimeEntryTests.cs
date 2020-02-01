@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace L.A.G.O.R.R.A.Test
@@ -7,7 +8,7 @@ namespace L.A.G.O.R.R.A.Test
     public class WorkerTimeEntryTests
     {
 
-        private DateTime CreateEntryTimestamp(int hour, int minutes)
+        private DateTime CreateTimestamp(int hour, int minutes)
         {
             return new DateTime(2020, 12, 25, hour, minutes, 0);
         }
@@ -20,7 +21,7 @@ namespace L.A.G.O.R.R.A.Test
         
         public WorkerTimeEntryTestingClass GivenAWorkerTimeEntryAt(int hour, int minutes)
         {
-            var entryTimestamp = CreateEntryTimestamp(hour, minutes);
+            var entryTimestamp = CreateTimestamp(hour, minutes);
             var entry = CreateWorkerTimeEntry(entryTimestamp);
             return new WorkerTimeEntryTestingClass(entry);
         }
