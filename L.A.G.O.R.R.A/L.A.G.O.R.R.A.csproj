@@ -69,6 +69,7 @@
     <Compile Include="WorkerTimeEntriesExcelFileParser.cs" />
     <Compile Include="WorkerTimeEntry.cs" />
     <Compile Include="WorkerWorkingPeriod.cs" />
+    <Compile Include="WorkingPeriodsExcelWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

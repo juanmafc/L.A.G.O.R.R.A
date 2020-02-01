@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace L.A.G.O.R.R.A
 {
-    class WorkedDay
+    public class WorkedDay
     {
         private DateTime day;
         private List<Time> loggedTimes = new List<Time>();

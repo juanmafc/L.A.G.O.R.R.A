@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace L.A.G.O.R.R.A
 {
-    class WorkerWorkingPeriod
+    public class WorkerWorkingPeriod
     {
 
         private List<WorkerTimeEntry> workerTimeEntries = new List<WorkerTimeEntry>();
