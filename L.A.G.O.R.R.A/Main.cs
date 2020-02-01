@@ -1,5 +1,6 @@
 ﻿using ClosedXML.Excel;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,20 +11,20 @@ namespace L.A.G.O.R.R.A
     class Program
     {
         
-        private static SortedDictionary<int, WorkerWorkingPeriod> GroupTimeEntriesInWorkingPeriodsByWorker(List<WorkerTimeEntry> timeEntries)
+        private static ICollection<WorkerWorkingPeriod> GroupTimeEntriesInWorkingPeriodsByWorker(ICollection<WorkerTimeEntry> timeEntries)
         {
-            SortedDictionary<int, WorkerWorkingPeriod> workingPeriods = new SortedDictionary<int, WorkerWorkingPeriod>();
+            var workingPeriods = new SortedDictionary<int, WorkerWorkingPeriod>();
             foreach (var timeEntry in timeEntries)
             {
                 int workerId = timeEntry.getWorkerID();
                 if ( !workingPeriods.ContainsKey(workerId) )
                 {
+                    //TODO: define what to do if the workerIDs do not match, maybe only timestamps should be added to workingPeriods
                     workingPeriods[workerId] = new WorkerWorkingPeriod(workerId);
                 }
                 workingPeriods[workerId].addWorkerTimeEntry(timeEntry);
             }
-
-            return workingPeriods;
+            return workingPeriods.Values;
         }
         static void Main(string[] args)
         {
@@ -36,21 +37,18 @@ namespace L.A.G.O.R.R.A
 
             var hoursWorkbook = new XLWorkbook(hoursWorkbookName);
             var timeEntries = new WorkerTimeEntriesExcelFileParser().parse(hoursWorkbook, timeEntriesCount);
-            SortedDictionary<int, WorkerWorkingPeriod> workingPeriods = GroupTimeEntriesInWorkingPeriodsByWorker(timeEntries);
+            
+            var workingPeriods = GroupTimeEntriesInWorkingPeriodsByWorker(timeEntries);
             
             var workingPeriodsExcelWriter = new WorkingPeriodsExcelWriter(hoursWorkbook.Worksheet(2));
-            //TODO: A dictionary might not be needed here, use set instead
-            foreach (KeyValuePair<int, WorkerWorkingPeriod> workingPeriod in workingPeriods)
+            foreach (WorkerWorkingPeriod workingPeriod in workingPeriods)
             {
-                int workerId = workingPeriod.Key;
-                workingPeriodsExcelWriter.WritePeriodHeader(workerId);
-                workingPeriodsExcelWriter.WritePeriod(workingPeriod.Value);
+                workingPeriodsExcelWriter.WritePeriodHeader(workingPeriod.WorkerID);
+                workingPeriodsExcelWriter.WritePeriod(workingPeriod);
                 workingPeriodsExcelWriter.WriteBlankRow();
             }
-
             hoursWorkbook.Save();
         }
-        
     }
     
 }
