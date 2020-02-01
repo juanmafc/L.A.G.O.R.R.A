@@ -19,27 +19,31 @@ namespace L.A.G.O.R.R.A
             periodsSheet.Cell("B" + currentRow).Value = workerId;
             periodsSheet.Cell("G" + currentRow).Value = "Mañana";
             periodsSheet.Cell("H" + currentRow).Value = "Tarde";
-            
-            currentRow++;
+
+            MoveToNextRow();
         }
 
         public void WriteBlankRow()
         {
-            currentRow+=2;
+            MoveToNextRow();
         }
 
         public void WritePeriod(WorkerWorkingPeriod workingPeriod)
         {
             int firstDayRow = currentRow;
-            
+            int lastDayRow = currentRow;
             foreach (WorkedDay workedDay in workingPeriod.getWorkedDays())
             {
-                writeWorkDay(workedDay);                                        
-                currentRow++;
+                writeWorkDay(workedDay);
+                lastDayRow = currentRow;
+                MoveToNextRow();
             }
-            
-            int lastDayRow = currentRow - 1;
-                
+            WriteWorkedTimeSum(firstDayRow, lastDayRow);
+            MoveToNextRow();
+        }
+
+        private void WriteWorkedTimeSum(int firstDayRow, int lastDayRow)
+        {
             periodsSheet.Cell("G" + currentRow).FormulaA1 = "=SUM(G" + firstDayRow + ":G" + lastDayRow + ")";
             periodsSheet.Cell("H" + currentRow).FormulaA1 = "=SUM(H" + firstDayRow + ":H" + lastDayRow + ")";
             periodsSheet.Cell("I" + currentRow).FormulaA1 = "=SUM(G" + currentRow + ": H" + currentRow + ")";
@@ -48,7 +52,7 @@ namespace L.A.G.O.R.R.A
             periodsSheet.Cell("H" + currentRow).Style.NumberFormat.Format = "[h]:mm:ss";
             periodsSheet.Cell("I" + currentRow).Style.NumberFormat.Format = "[h]:mm:ss";
         }
-        
+
         private void writeWorkDay(WorkedDay workedDay)
         {
             periodsSheet.Cell("A" + currentRow).Value = workedDay.getDate();
@@ -71,6 +75,11 @@ namespace L.A.G.O.R.R.A
                 periodsSheet.Cell("H" + currentRow).Style.Fill.BackgroundColor = XLColor.Red;
             }
 
+        }
+        
+        private void MoveToNextRow()
+        {
+            currentRow++;
         }
     }
 }
